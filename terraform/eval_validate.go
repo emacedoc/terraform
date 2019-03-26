@@ -149,10 +149,9 @@ func (n *EvalValidateProvisioner) Eval(ctx EvalContext) (interface{}, error) {
 	}
 
 	{
-		// Now validate the connection config, which might either be from
-		// the provisioner block itself or inherited from the resource's
-		// shared connection info.
-		connDiags := n.validateConnConfig(ctx, n.ConnConfig, n.ResourceAddr)
+		// Now validate the connection config, which contains the merged bodies
+		// of the resource and provisioner connection blocks.
+		connDiags := n.validateConnConfig(ctx, config.Connection, n.ResourceAddr)
 		diags = diags.Append(connDiags)
 	}
 
